@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 1</title>
+
+    <link rel="stylesheet" href="index.css" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="keys row">
+      <div class="col-6-sm col-3-lg">
+        <div class="key" data-key="A">
+          <kbd data-key="A">A</kbd>
+          <p class="sound" data-key="A">CLAP</p>
+        </div>
+        <div class="key" data-key="S">
+          <kbd data-key="S">S</kbd>
+          <p class="sound" data-key="S">HIHAT</p>
+        </div>
+        <div class="key" data-key="D">
+          <kbd data-key="D">D</kbd>
+          <p class="sound" data-key="D">KICK</p>
+        </div>
+        <div class="key" data-key="F">
+          <kbd data-key="F">F</kbd>
+          <p class="sound" data-key="F">OPENHAT</p>
+        </div>
+      </div>
+      <div class="col-3-sm col-3-lg">
+        <div class="key" data-key="G">
+          <kbd data-key="G">G</kbd>
+          <p class="sound" data-key="G">BOOM</p>
+        </div>
+        <div class="key" data-key="H">
+          <kbd data-key="H">H</kbd>
+          <p class="sound" data-key="H">RIDE</p>
+        </div>
+      </div>
+      <div class="col-5-sm col-3-lg">
+        <div class="key" data-key="J">
+          <kbd data-key="J">J</kbd>
+          <p class="sound" data-key="J">SNARE</p>
+        </div>
+        <div class="key" data-key="K">
+          <kbd data-key="K">K</kbd>
+          <p class="sound" data-key="K">TOM</p>
+        </div>
+        <div class="key" data-key="L">
+          <kbd data-key="L">L</kbd>
+          <p class="sound" data-key="L">TINK</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <audio data-key="A" class="audio-file" src="sounds/clap.wav"></audio>
+      <audio data-key="S" class="audio-file" src="sounds/hihat.wav"></audio>
+      <audio data-key="D" class="audio-file" src="sounds/kick.wav"></audio>
+      <audio data-key="F" class="audio-file" src="sounds/openhat.wav"></audio>
+      <audio data-key="G" class="audio-file" src="sounds/boom.wav"></audio>
+      <audio data-key="H" class="audio-file" src="sounds/ride.wav"></audio>
+      <audio data-key="J" class="audio-file" src="sounds/snare.wav"></audio>
+      <audio data-key="K" class="audio-file" src="sounds/tom.wav"></audio>
+      <audio data-key="L" class="audio-file" src="sounds/tink.wav"></audio>
+    </footer>
+  </body>
+</html>

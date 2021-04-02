@@ -1,0 +1,63 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Lucida Console", "sans-serif", "monospace";
+  background-image: url("background.jpg");
+}
+
+kbd {
+  font-size: 40px;
+  margin: 0;
+  color: #eee;
+}
+
+.keys {
+  // vertical-align: middle;
+  margin: 2rem;
+  display: flex;
+  height: 100px;
+  // bottom: 30%;
+  // transform: translateY(50%);
+  // position: absolute;
+}
+
+.key {
+  border: 4px solid black;
+  border-radius: 15px;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  // margin: 8px;
+  padding: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: inline-block;
+}
+
+.sound {
+  color: gold;
+}
+
+$breakpoints: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "xxl": 1600px
+);
+
+$number-of-columns: 12;
+
+@each $breakpoint, $value in $breakpoints {
+  @media only screen and (min-width: $value) {
+    // Responsive column code
+    @for $i from 1 through $number-of-columns {
+      .col-#{$i}-#{$breakpoint} {
+        width: (100% / ($number-of-columns / $i));
+        padding: 0px 1rem;
+        margin: 0 auto 0 auto;
+      }
+    }
+  }
+}

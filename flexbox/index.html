@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexbox</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        font-size: 50px;
+      }
+      .container {
+        display: flex;
+        border: 8px darkorange solid;
+        height: 100vh;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .box {
+        padding-top: 1rem;
+        text-align: center;
+        color: white;
+        width: 200px;
+        width: 100%;
+        /* flex: 1; */
+      }
+
+      @media only screen and (min-width: 800px) {
+        .box {
+          width: 50%;
+        }
+      }
+
+      @media only screen and (min-width: 1200px) {
+        .box {
+          width: 33.33333%;
+        }
+      }
+      @media only screen and (min-width: 1600px) {
+        .box {
+          width: 16.6666%;
+        }
+      }
+
+      .box1 {
+        background-color: red;
+      }
+      .box2 {
+        background-color: blue;
+        /* order: 2; */
+      }
+      .box3 {
+        background-color: green;
+        /* order: 1; */
+      }
+      .box4 {
+        background-color: gray;
+      }
+      .box5 {
+        background-color: aqua;
+      }
+      .box6 {
+        background-color: bisque;
+      }
+      .box7 {
+        background-color: chocolate;
+      }
+      .box8 {
+        background-color: darkblue;
+      }
+      .box9 {
+        background-color: darkgray;
+      }
+      .box10 {
+        background-color: darkolivegreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box box1">1</div>
+      <div class="box box2">2</div>
+      <div class="box box3">3</div>
+      <div class="box box4">4</div>
+      <div class="box box5">5</div>
+      <div class="box box6">6</div>
+      <div class="box box7">7</div>
+      <div class="box box8">8</div>
+      <div class="box box9">9</div>
+      <div class="box box10">10</div>
+    </div>
+  </body>
+</html>

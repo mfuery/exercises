@@ -33,6 +33,13 @@ kbd {
   flex-direction: row;
   flex-wrap: wrap;
   display: inline-block;
+  transition: all 0.07s;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: gold;
+  box-shadow: 0 0 10px gold;
 }
 
 .sound {

@@ -38,4 +38,9 @@ window.addEventListener("DOMContentLoaded", (e) => {
     const keyHit = e.key.toUpperCase()
     playClip(keyHit)
   })
+
+  // Try to preload audio clips
+  document.querySelectorAll("audio").forEach((el) => {
+    el.load()
+  })
 })

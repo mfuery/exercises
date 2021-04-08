@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock in Native Javascript/CSS</title>
+
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hours"></div>
+        <div class="hand minutes"></div>
+        <div class="hand seconds"></div>
+      </div>
+    </div>
+    <script>
+      const secondHand = document.querySelector(".hand.seconds")
+
+      function setDate() {
+        const now = new Date()
+
+        const seconds = now.getSeconds()
+        const secondsInDegrees = (seconds / 60) * 360 + 90
+        secondHand.style.transform = `rotate(${secondsInDegrees}deg)`
+        console.log(seconds)
+      }
+
+      let interval = setInterval(setDate, 1000)
+    </script>
+  </body>
+</html>

@@ -35,15 +35,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
   // Touch events
   document.addEventListener("touchstart", (e) => {
+    console.log(e)
     if (!e) {
       return
     }
     const keyHit = e.key.toUpperCase()
     playClip(keyHit)
   })
-
-  // Try to preload audio clips
-  // document.querySelectorAll("audio").forEach((el) => {
-  //   el.load()
-  // })
 })

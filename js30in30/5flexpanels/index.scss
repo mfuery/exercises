@@ -83,7 +83,7 @@ footer {
   // text-align: center;
   align-items: center;
   transition: transform 0.7s;
-  flex: 1 0 0; /* grow, shrink, basis */
+  flex: 1 0 auto; /* grow, shrink, basis */
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
 }
 

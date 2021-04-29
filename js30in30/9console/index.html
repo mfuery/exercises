@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Console</title>
+  </head>
+  <body>
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "hugo", age: 8 }
+      ]
+
+      function makeGreen() {
+        const p = document.querySelector("p")
+        p.style.color = "#BADA55"
+        p.style.fontSize = "50px"
+      }
+
+      // Regular
+      console.log(dogs)
+
+      // Interpolated
+      console.log(`Hello ${dogs[0].name}`)
+      console.log(`Hello ${dogs[1].name}`)
+
+      // Table
+      console.table(dogs)
+
+      // Styled
+
+      // warning!
+      console.warn("The coder wants to warn you about something")
+
+      // Error :|
+      console.error("The coder says there was an error!")
+
+      // Info
+      console.info("I'm here to give you info")
+
+      // Testing
+      console.assert("A" === "A", "I asserted A=A") // nothing shown
+      console.assert(0 === "0", "I asserted 0=A") // shows error
+
+      // clearing
+      // console.clear()
+
+      // Viewing DOM Elements
+      const pElement = document.querySelector("p")
+      console.log(pElement)
+
+      // Grouping together
+
+      // counting
+      ;["a", "b", "c", "a", "a", "c"].forEach((n) => {
+        console.count(n)
+      })
+
+      // timing
+      console.time("myTimer")
+      let n = 1
+      for (let i = 0; i < 1000; i++) {
+        n = 2 ^ i
+      }
+      console.timeEnd("myTimer")
+    </script>
+  </body>
+</html>

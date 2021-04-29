@@ -1,0 +1,69 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "helvetica";
+}
+
+.section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.section > * {
+  margin: 0 auto;
+}
+
+.search-form .query {
+  width: 20em;
+  height: 2em;
+  font-size: 1.5em;
+  margin: 3em auto 3px auto;
+  padding: 0.5rem;
+  border: #eee 4px solid;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.search-form .query:focus {
+  border: lightsteelblue 4px solid;
+}
+
+.search-form .query::-webkit-input-placeholder {
+  color: #ddd;
+}
+
+.search-form .query:-ms-input-placeholder {
+  color: #ddd;
+}
+
+.search-form .query::-ms-input-placeholder {
+  color: #ddd;
+}
+
+.search-form .query::placeholder {
+  color: #ddd;
+}
+
+.search-form .more {
+  color: #ccc;
+  font-style: italic;
+}
+
+.search-form .suggestions ul {
+  list-style-type: none;
+}
+
+.footnote {
+  font-size: 0.8rem;
+  color: #aaa;
+  font-style: italic;
+  text-align: right;
+  float: right;
+  margin-right: 1em;
+}
+/*# sourceMappingURL=index.css.map */

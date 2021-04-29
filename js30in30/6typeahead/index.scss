@@ -1,0 +1,55 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "helvetica";
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.section > * {
+  margin: 0 auto;
+}
+
+.search-form {
+  .query {
+    width: 20em;
+    height: 2em;
+    font-size: 1.5em;
+    margin: 3em auto 3px auto;
+    padding: 0.5rem;
+    border: #eee 4px solid;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .query:focus {
+    border: lightsteelblue 4px solid;
+  }
+
+  .query::placeholder {
+    color: #ddd;
+  }
+
+  .more {
+    color: #ccc;
+    font-style: italic;
+  }
+
+  .suggestions {
+    ul {
+      list-style-type: none;
+    }
+  }
+}
+
+.footnote {
+  font-size: 0.8rem;
+  color: #aaa;
+  font-style: italic;
+  text-align: right;
+  float: right;
+  margin-right: 1em;
+}

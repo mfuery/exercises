@@ -4,7 +4,72 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSS Vars</title>
+    <title>CSS Variables</title>
+    <style>
+      :root {
+        --base: gold;
+        --spacing: 10px;
+        --blur: 10px;
+      }
+
+      html {
+        font-family: "Lucida Sans", sans-serif;
+        padding: 0;
+        margin: 8px;
+      }
+
+      img {
+        padding: (--spacing);
+        width: 100%;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>Update CSS Variables with JS</h1>
+    </header>
+    <article class="controls">
+      <div class="spacing">
+        <label for="spacing">Spacing</label>
+        <input type="range" min="10" max="200" value="10" data-sizing="px" />
+      </div>
+      <div class="blur">
+        <label for="blur">Blur</label>
+        <input
+          name="blur"
+          type="range"
+          min="0"
+          max="25"
+          value="0"
+          data-sizing="px"
+        />
+      </div>
+      <div class="base-color">
+        <label for="color">Base Color</label>
+        <input name="color" type="color" />
+      </div>
+    </article>
+
+    <article>
+      <img class="photo" src="photo.jpg" />
+    </article>
+
+    <script>
+      function handleUpdate(e) {
+        const suffix = e.dataset.sizing || ""
+        console.log(e, suffix)
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const inputs = document.querySelectorAll(".controls input")
+
+        inputs.forEach((inputElement) => {
+          inputElement.addEventListener("change", handleUpdate)
+          inputElement.addEventListener("mousemove", handleUpdate)
+        })
+
+        console.log("hi")
+      })
+    </script>
+  </body>
 </html>

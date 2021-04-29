@@ -39,8 +39,30 @@ body {
   }
 
   .suggestions {
+    display: absolute;
+    z-index: 100;
+
     ul {
-      list-style-type: none;
+    }
+
+    li {
+      list-style: none;
+      padding: 12px;
+      border: gray 2px solid;
+      box-shadow: 4px 4px #ddd;
+    }
+    li:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .pop {
+      padding: 0 8px;
+      float: right;
+    }
+    .map {
+      float: right;
+      padding: 0 8px;
     }
   }
 }

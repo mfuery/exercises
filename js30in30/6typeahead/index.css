@@ -54,8 +54,32 @@ body {
   font-style: italic;
 }
 
-.search-form .suggestions ul {
-  list-style-type: none;
+.search-form .suggestions {
+  display: absolute;
+  z-index: 100;
+}
+
+.search-form .suggestions li {
+  list-style: none;
+  padding: 12px;
+  border: gray 2px solid;
+  -webkit-box-shadow: 4px 4px #ddd;
+          box-shadow: 4px 4px #ddd;
+}
+
+.search-form .suggestions li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.search-form .suggestions .pop {
+  padding: 0 8px;
+  float: right;
+}
+
+.search-form .suggestions .map {
+  float: right;
+  padding: 0 8px;
 }
 
 .footnote {

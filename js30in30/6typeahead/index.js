@@ -6,6 +6,7 @@ let cities = []
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.querySelector(".query")
   const form = document.querySelector(".search-form")
+  const suggestions = document.querySelector(".suggestions")
 
   fetchPromise
     .then((response) => response.json())
@@ -21,17 +22,33 @@ document.addEventListener("DOMContentLoaded", () => {
       return
     }
 
-    const query = e.target.value
+    let query = e.target.value
+    console.log(`query: ${query} matches`)
+    query = query.replace(/[^a-zA-Z ]/gi, "")
+    query = query.trim()
+
+    if (query === "") {
+      return
+    }
+
     const matches = getMatches(query, cities)
-    console.log(`query: ${query} matches`, matches)
+
     const matchHtml = generateList(matches)
-    document.querySelector(".suggestions").innerHTML = matchHtml
+
+    suggestions.innerHTML = matchHtml
+    document.querySelectorAll(".suggestion").forEach((el) => {
+      el.addEventListener("click", handleSelection)
+    })
   })
+
+  function handleSelection(e) {
+    input.value = e.target.dataset.name
+    suggestions.innerHTML = ""
+    input.focus()
+  }
 })
 
 function getMatches(query, data) {
-  query = query.replace(/[^a-zA-Z ]/gi, "")
-  query = query.trim()
   if (query === "") {
     return []
   }
@@ -55,43 +72,32 @@ function generateList(matches) {
   let overflow = false
   let resultCount = matches.length
 
-  if (matches.length > 20) {
+  if (matches.length === 0) {
+    return `<li class="more">
+      <span>No results</span>
+    </li>`
+  }
+
+  if (resultCount > 20) {
     matches = matches.slice(0, 19)
     overflow = true
   }
+
   let html = matches.map((match) => {
-    return `
-    <li class="suggestion">
+    return `<li class="suggestion" data-name="${match.city}, ${match.state}">
       <span class="name">${match.city}, ${match.state}</span>
-      <span class="pop">${match.population}</span>
       <span class="map">
         <a href="https://www.google.com/maps?q=${match.latitude},${match.longitude}">Map</a>
       </span>
-    </li>
-  `
+      <span class="pop">Pop. ${match.population}</span>
+    </li>`
   })
 
   if (overflow) {
-    html += `
-    <li class="more">
+    html += `<li class="more">
       <span>(${resultCount - 20} more...)</span>
-    </li>
-  `
+    </li>`
   }
 
   return html
-}
-
-// https://www.freecodecamp.org/news/javascript-debounce-example/
-function debounce_leading(func, timeout = 300) {
-  let timer
-  return (...args) => {
-    if (!timer) {
-      func.apply(this, args)
-    }
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      timer = undefined
-    }, timeout)
-  }
 }

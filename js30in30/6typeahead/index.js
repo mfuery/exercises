@@ -28,12 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
     query = query.trim()
 
     if (query === "") {
+      suggestions.innerHTML = ""
       return
     }
 
     const matches = getMatches(query, cities)
 
-    const matchHtml = generateList(matches)
+    const matchHtml = generateList(matches, query)
 
     suggestions.innerHTML = matchHtml
     document.querySelectorAll(".suggestion").forEach((el) => {
@@ -68,7 +69,9 @@ function getMatches(query, data) {
   })
 }
 
-function generateList(matches) {
+function generateList(matches, query) {
+  let queries = query.split(" ")
+
   let overflow = false
   let resultCount = matches.length
 
@@ -84,12 +87,14 @@ function generateList(matches) {
   }
 
   let html = matches.map((match) => {
+    let hl = `${match.city}, ${match.state}`
+    // TODO: how do we highlight matching text?
+    // `<span class="hl">${m}</span>`
+    // for (let i = 0; i < queries.length; i++) {}
+
     return `<li class="suggestion" data-name="${match.city}, ${match.state}">
-      <span class="name">${match.city}, ${match.state}</span>
-      <span class="map">
-        <a href="https://www.google.com/maps?q=${match.latitude},${match.longitude}">Map</a>
-      </span>
-      <span class="pop">Pop. ${match.population}</span>
+      <span class="name">${hl}</span>
+      <span class="pop">Pop. ${numberWithCommas(match.population)}</span>
     </li>`
   })
 
@@ -100,4 +105,8 @@ function generateList(matches) {
   }
 
   return html
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }

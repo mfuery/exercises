@@ -1,7 +1,9 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: "helvetica";
+  font-family: "helvetica neue";
+  background: white;
+  font-weight: 200;
 }
 
 .section {
@@ -24,13 +26,21 @@ body {
   font-size: 1.5em;
   margin: 3em auto 3px auto;
   padding: 0.5rem;
-  border: #eee 4px solid;
-  border-radius: 8px;
+  border: #eee 8px solid;
+  border-radius: 4px;
   text-align: center;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.19);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.19);
 }
 
 .search-form .query:focus {
-  border: lightsteelblue 4px solid;
+  border: #ffb121 8px solid;
+}
+
+.search-form .query:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: #eeb334 8px solid;
 }
 
 .search-form .query::-webkit-input-placeholder {
@@ -49,27 +59,60 @@ body {
   color: #ddd;
 }
 
+.search-form .results {
+  position: relative;
+  z-index: 100;
+}
+
 .search-form .more {
   color: #ccc;
   font-style: italic;
 }
 
 .search-form .suggestions {
-  display: absolute;
-  z-index: 100;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: -4px;
 }
 
 .search-form .suggestions li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   list-style: none;
   padding: 12px;
+  background: white;
   border: gray 2px solid;
   -webkit-box-shadow: 4px 4px #ddd;
           box-shadow: 4px 4px #ddd;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-transform: capitalize;
 }
 
 .search-form .suggestions li:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background: -webkit-gradient(linear, left top, left bottom, from(#e7c57a), to(#eeb334)) !important;
+  background: linear-gradient(to bottom, #e7c57a 0%, #eeb334 100%) !important;
   cursor: pointer;
+}
+
+.search-form .suggestions li:nth-child(even) {
+  -webkit-transform: perspective(100px) rotateX(3deg) translateY(2px) scale(1.001);
+          transform: perspective(100px) rotateX(3deg) translateY(2px) scale(1.001);
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#efefef));
+  background: linear-gradient(to bottom, #ffffff 0%, #efefef 100%);
+}
+
+.search-form .suggestions li:nth-child(odd) {
+  -webkit-transform: perspective(100px) rotateX(-3deg) translateY(3px);
+          transform: perspective(100px) rotateX(-3deg) translateY(3px);
+  background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(#efefef));
+  background: linear-gradient(to top, #ffffff 0%, #efefef 100%);
 }
 
 .search-form .suggestions .pop {
@@ -89,5 +132,6 @@ body {
   text-align: right;
   float: right;
   margin-right: 1em;
+  display: none;
 }
 /*# sourceMappingURL=index.css.map */

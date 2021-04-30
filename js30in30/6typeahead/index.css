@@ -95,6 +95,10 @@ body {
   text-transform: capitalize;
 }
 
+.search-form .suggestions li .hl {
+  background: #eeb334;
+}
+
 .search-form .suggestions li:hover {
   background: -webkit-gradient(linear, left top, left bottom, from(#e7c57a), to(#eeb334)) !important;
   background: linear-gradient(to bottom, #e7c57a 0%, #eeb334 100%) !important;

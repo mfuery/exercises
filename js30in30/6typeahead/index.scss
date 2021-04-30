@@ -71,6 +71,10 @@ body {
       display: flex;
       justify-content: space-between;
       text-transform: capitalize;
+
+      .hl {
+        background: $hl-regular;
+      }
     }
     li:hover {
       background: linear-gradient(

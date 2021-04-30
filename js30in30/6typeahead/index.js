@@ -16,18 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
   input.addEventListener("input", (e) => {
-    console.log(e)
     if (!cities) {
       console.warn("Data not loaded yet")
       return
     }
 
-    let query = e.target.value
-    console.log(`query: ${query} matches`)
-    query = query.replace(/[^a-zA-Z ]/gi, "")
-    query = query.trim()
+    let query = sanitizeQuery(e.target.value)
+    console.log(`sani query: ${query}`)
 
-    if (query === "") {
+    if (query.length === 0) {
       suggestions.innerHTML = ""
       return
     }
@@ -49,18 +46,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
+function sanitizeQuery(query) {
+  query = query.replace(/[^a-zA-Z ]/gi, "")
+  query = query.trim().toLowerCase()
+  query = query.split(" ")
+
+  return query
+}
+
 function getMatches(query, data) {
-  if (query === "") {
-    return []
-  }
-
-  let queries = query.split(" ")
-  console.log(queries)
-
   return data.filter((c) => {
     let matched = []
-    for (let i = 0; i < queries.length; i++) {
-      const regex = new RegExp(queries[i], "i")
+    for (let i = 0; i < query.length; i++) {
+      const regex = new RegExp(query[i], "i")
       if (c.city.match(regex) || c.state.match(regex)) {
         matched[i] = true
       } else matched[i] = false
@@ -70,8 +68,6 @@ function getMatches(query, data) {
 }
 
 function generateList(matches, query) {
-  let queries = query.split(" ")
-
   let overflow = false
   let resultCount = matches.length
 
@@ -87,10 +83,39 @@ function generateList(matches, query) {
   }
 
   let html = matches.map((match) => {
-    let hl = `${match.city}, ${match.state}`
-    // TODO: how do we highlight matching text?
-    // `<span class="hl">${m}</span>`
-    // for (let i = 0; i < queries.length; i++) {}
+    let srcTxt = `${match.city}, ${match.state}`
+    let txt = `${match.city}, ${match.state}`.toLowerCase()
+    let stack = []
+    let lastTxtIndex = 0
+
+    // Highlight matching tokens (with limitations)
+    if (txt.indexOf(query[0]) !== 0) {
+      stack.push(srcTxt.substr(0, txt.indexOf(query[0])))
+      lastTxtIndex = txt.indexOf(query[0])
+    }
+    console.log(stack)
+
+    query.forEach((q, i) => {
+      if (txt.indexOf(q) === -1) {
+        console.warn(`query i=${i} not found. shouldn't happen`)
+        return
+      }
+
+      if (lastTxtIndex !== txt.indexOf(q)) {
+        console.log(lastTxtIndex, txt.indexOf(q), txt.indexOf(q) - lastTxtIndex)
+        stack.push(srcTxt.substr(lastTxtIndex, txt.indexOf(q) - lastTxtIndex))
+      }
+
+      stack.push(`<span class="hl">`)
+      stack.push(srcTxt.substr(txt.indexOf(q), q.length))
+      stack.push(`</span>`)
+      console.log(stack)
+      lastTxtIndex = txt.indexOf(q) + q.length
+    })
+
+    stack.push(srcTxt.substr(lastTxtIndex))
+
+    const hl = stack.join("")
 
     return `<li class="suggestion" data-name="${match.city}, ${match.state}">
       <span class="name">${hl}</span>

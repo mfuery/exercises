@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return
     }
 
-    let query = sanitizeQuery(e.target.value)
-    console.log(`sani query: ${query}`)
+    const query = sanitizeQuery(e.target.value)
+    console.log(`sani query`, query)
 
     if (query.length === 0) {
       suggestions.innerHTML = ""
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const matchHtml = generateList(matches, query)
 
+    // console.log(matchHtml)
     suggestions.innerHTML = matchHtml
     document.querySelectorAll(".suggestion").forEach((el) => {
       el.addEventListener("click", handleSelection)
@@ -51,7 +52,30 @@ function sanitizeQuery(query) {
   query = query.trim().toLowerCase()
   query = query.split(" ")
 
-  return query
+  // Eliminate dupes
+  query = new Set(query)
+  query = Array.from(query)
+  query = query.sort(function (a, b) {
+    return a.length - b.length
+  })
+
+  console.log("Before q", query)
+
+  // Eliminate queries that are subset/substr of another query
+  const newQ = query.filter((q, idx) => {
+    for (let i = idx; i < query.length; i++) {
+      if (i !== idx) {
+        if (query[i].includes(q)) {
+          return false
+        }
+      }
+    }
+    return true
+  })
+
+  // console.log("After q", newQ)
+
+  return newQ
 }
 
 function getMatches(query, data) {
@@ -72,9 +96,7 @@ function generateList(matches, query) {
   let resultCount = matches.length
 
   if (matches.length === 0) {
-    return `<li class="more">
-      <span>No results</span>
-    </li>`
+    return `<li class="more"><span>No results</span></li>`
   }
 
   if (resultCount > 20) {
@@ -93,7 +115,7 @@ function generateList(matches, query) {
       stack.push(srcTxt.substr(0, txt.indexOf(query[0])))
       lastTxtIndex = txt.indexOf(query[0])
     }
-    console.log(stack)
+    // console.log(stack)
 
     query.forEach((q, i) => {
       if (txt.indexOf(q) === -1) {
@@ -102,14 +124,14 @@ function generateList(matches, query) {
       }
 
       if (lastTxtIndex !== txt.indexOf(q)) {
-        console.log(lastTxtIndex, txt.indexOf(q), txt.indexOf(q) - lastTxtIndex)
+        // console.log(lastTxtIndex, txt.indexOf(q), txt.indexOf(q) - lastTxtIndex)
         stack.push(srcTxt.substr(lastTxtIndex, txt.indexOf(q) - lastTxtIndex))
       }
 
       stack.push(`<span class="hl">`)
       stack.push(srcTxt.substr(txt.indexOf(q), q.length))
       stack.push(`</span>`)
-      console.log(stack)
+      // console.log(stack)
       lastTxtIndex = txt.indexOf(q) + q.length
     })
 
@@ -117,11 +139,14 @@ function generateList(matches, query) {
 
     const hl = stack.join("")
 
-    return `<li class="suggestion" data-name="${match.city}, ${match.state}">
-      <span class="name">${hl}</span>
-      <span class="pop">Pop. ${numberWithCommas(match.population)}</span>
-    </li>`
+    return (
+      `<li class="suggestion" data-name="${match.city}, ${match.state}">` +
+      `<span class="name">${hl}</span>` +
+      `<span class="pop">Pop. ${numberWithCommas(match.population)}</span>` +
+      `</li>`
+    )
   })
+  html = html.join("")
 
   if (overflow) {
     html += `<li class="more">

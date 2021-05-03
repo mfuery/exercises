@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const query = sanitizeQuery(e.target.value)
-    console.log(`sani query`, query)
 
     if (query.length === 0) {
       suggestions.innerHTML = ""
@@ -55,11 +54,9 @@ function sanitizeQuery(query) {
   // Eliminate dupes
   query = new Set(query)
   query = Array.from(query)
-  query = query.sort(function (a, b) {
+  query = query.sort((a, b) => {
     return a.length - b.length
   })
-
-  console.log("Before q", query)
 
   // Eliminate queries that are subset/substr of another query
   const newQ = query.filter((q, idx) => {
@@ -72,8 +69,6 @@ function sanitizeQuery(query) {
     }
     return true
   })
-
-  // console.log("After q", newQ)
 
   return newQ
 }
@@ -112,10 +107,17 @@ function generateList(matches, query) {
 
     // Highlight matching tokens (with limitations)
     if (txt.indexOf(query[0]) !== 0) {
-      stack.push(srcTxt.substr(0, txt.indexOf(query[0])))
       lastTxtIndex = txt.indexOf(query[0])
+      stack.push(srcTxt.substr(0, lastTxtIndex))
     }
-    // console.log(stack)
+
+    console.log("query", query)
+
+    // Sort query terms by when they appear in the result string
+    query = query.sort((a, b) => {
+      return txt.indexOf(a) - txt.indexOf(b)
+    })
+    console.log("After sort", query)
 
     query.forEach((q, i) => {
       if (txt.indexOf(q) === -1) {
@@ -131,7 +133,7 @@ function generateList(matches, query) {
       stack.push(`<span class="hl">`)
       stack.push(srcTxt.substr(txt.indexOf(q), q.length))
       stack.push(`</span>`)
-      // console.log(stack)
+      console.log(stack)
       lastTxtIndex = txt.indexOf(q) + q.length
     })
 
